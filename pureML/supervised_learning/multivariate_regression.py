@@ -68,15 +68,15 @@ class MultivariateRegression():
             # Add the bias column
             X = np.insert(X, 0, 1, axis=1)
 
-            return X.dot(self.weights)
+            return np.matmul(X, self.weights)
 
 
 if __name__ == "__main__":
-    from sklearn.datasets import load_boston, load_diabetes
+    from sklearn.datasets import load_diabetes
     from sklearn.linear_model import LinearRegression
     import matplotlib.pyplot as plt
 
-    X = load_diabetes().data[:, np.newaxis, 2]
+    X = load_diabetes().data[:, np.newaxis, 2] # Use the third column as feature
     y = load_diabetes().target
 
     data_size = y.shape[0]
@@ -87,10 +87,17 @@ if __name__ == "__main__":
     model = MultivariateRegression(loss='l2', num_epoch=5000)
     model.train(X_train, y_train)
 
-    y_pred = model.predict(X_test)
+    y_train_pred = model.predict(X_train)
+    y_test_pred = model.predict(X_test)
+
+    plt.scatter(X_train, y_train, color='black')
+    plt.plot(X_train, y_train_pred, color='blue', linewidth=3)
+    plt.title('Training dataset')
+    plt.show()
 
     plt.scatter(X_test, y_test, color='black')
-    plt.plot(X_test, y_pred, color='blue', linewidth=3)
+    plt.plot(X_test, y_test_pred, color='blue', linewidth=3)
+    plt.title('Testing dataset')
     plt.show()
 
     plt.plot(range(len(model.training_errors)), model.training_errors, color='black', linewidth='3')
