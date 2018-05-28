@@ -52,7 +52,7 @@ class MultivariateRegression():
 
         if self.vectorized:
             for i in range(self.num_epoch):
-                y_pred = X.dot(self.weights)
+                y_pred = np.matmul(X, self.weights)
 
                 error = self.loss_function(y, y_pred)
                 self.training_errors.append(error)
