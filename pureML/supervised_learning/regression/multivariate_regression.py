@@ -73,7 +73,6 @@ class MultivariateRegression():
 
 if __name__ == "__main__":
     from sklearn.datasets import load_diabetes
-    from sklearn.linear_model import LinearRegression
     import matplotlib.pyplot as plt
 
     X = load_diabetes().data[:, np.newaxis, 2] # Use the third column as feature
@@ -104,6 +103,5 @@ if __name__ == "__main__":
     plt.title('Final Training Error: %.2f' % model.training_errors[-1])
     plt.xlabel('Epoch')
     plt.ylabel('Training Error')
-
     plt.show()
 
