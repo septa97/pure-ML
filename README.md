@@ -21,5 +21,5 @@ pip install -r requirements.txt
 
 * Run an example model
 ```sh
-python pureML/supervised_learning/multivariate_regression.py
+python pureML/supervised_learning/regression/multivariate_regression.py
 ```
