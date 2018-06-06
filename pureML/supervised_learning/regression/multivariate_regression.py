@@ -21,7 +21,7 @@ class MultivariateRegression():
         if loss == 'l1':
             self.loss_function = lambda y, y_pred: np.mean(abs(y - y_pred))
         elif loss == 'l2':
-            self.loss_function = lambda y, y_pred: np.mean((y - y_pred) ** 2)
+            self.loss_function = lambda y, y_pred: np.mean((y - y_pred) ** 2) * 0.5
 
     def train(self, X, y, shuffle=False):
         """Trains a multivariate regression model.
@@ -57,8 +57,22 @@ class MultivariateRegression():
                 error = self.loss_function(y, y_pred)
                 self.training_errors.append(error)
 
-                # Compute gradient
+                # Compute gradient (same as looping all over the dataset and computing the mean)
                 grad = -(y - y_pred).dot(X)
+
+                # Uncomment this code snippet if you want to try the non-vectorized implementation
+                ################
+                # grad = []
+                # for i in range(X.shape[1]):
+                #     temp = 0
+
+                #     for j in range(X.shape[0]):
+                #         temp += (y[j] - y_pred[j]) * X[j, i]
+
+                #     grad.append(-temp/X.shape[1])
+
+                # grad = np.array(grad)
+                ################
 
                 # Update weights
                 self.weights -= self.learning_rate * grad
